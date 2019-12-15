@@ -1,0 +1,12 @@
+image: php:7.2
+
+pipelines:
+  branches:
+    staging:
+      - step:
+          name: Deploy to Staging
+          deployment: staging
+          script:
+            - apt-get update && apt-get install -y unzip
+            - apt-get install -y openssh-client
+            - ssh dev_root@178.62.48.202 'bash -s' < deploy-staging.sh
