@@ -6,7 +6,6 @@ git status
 
 git checkout .
 git checkout staging
-
 git pull staging
 
 npm run build
