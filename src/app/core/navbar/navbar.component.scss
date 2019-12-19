@@ -1,0 +1,35 @@
+@import 'abstracts/constants';
+
+.navbar {
+  box-shadow: 0 6px 15px -5px rgba(0,0,0,0.6);
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    max-width: $max-width;
+    height: 50px;
+    margin: 0 auto;
+    .section-left {
+      display: flex;
+      align-items: center;
+      &__title {
+        color: $green;
+        margin: 0;
+      }
+    }
+    .section-right {
+      display: flex;
+      align-items: center;
+      &__auth-items {
+        display: flex;
+        align-items: center;
+        color: $green;
+      }
+      &__auth-items {
+        cursor: pointer;
+      }
+      &__login {
+        margin: 0 10px;
+      }
+    }
+  }
+}
