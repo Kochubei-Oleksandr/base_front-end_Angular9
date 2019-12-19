@@ -1,0 +1,16 @@
+.landing {
+  &__section {
+    &--second {
+      height: 100vh;
+      background-color: blue;
+    }
+    &--third {
+      height: 100vh;
+      background-color: green;
+    }
+  }
+  &__first-section {
+
+  }
+
+}

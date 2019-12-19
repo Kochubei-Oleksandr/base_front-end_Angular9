@@ -1,7 +1,19 @@
 @import 'abstracts/constants';
 
 .navbar {
-  box-shadow: 0 6px 15px -5px rgba(0,0,0,0.6);
+  width: 100%;
+  &--sticky {
+    box-shadow: 0 6px 15px -5px rgba(0,0,0,0.6);
+    transition: 1s;
+    background-color: #fff;
+    position: fixed;
+  }
+  &--no-sticky {
+    margin-bottom: -50px;
+  }
+  &--no-landing {
+    background-color: #fff;
+  }
   &__container {
     display: flex;
     justify-content: space-between;
@@ -14,20 +26,31 @@
     align-items: center;
     .left-section {
       &__title {
-        color: $green;
         margin: 0;
+        &--white {
+          color: white;
+        }
+        &--green {
+          color: $green;
+        }
       }
     }
     .right-section {
       &__auth {
         display: flex;
         align-items: center;
-        color: $green;
+        color: #fff;
         .auth {
           &__item {
             cursor: pointer;
             &--login {
               margin: 0 10px;
+            }
+            &--white {
+              color: white;
+            }
+            &--green {
+              color: $green;
             }
           }
         }

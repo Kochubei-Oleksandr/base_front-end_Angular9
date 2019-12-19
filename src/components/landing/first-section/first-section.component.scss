@@ -1,0 +1,17 @@
+@import 'abstracts/constants';
+@import 'abstracts/mixins';
+
+.first-section {
+  height: 100vh;
+  @include horizontal-gradient($green, $light-green);
+  &__container {
+    height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+  }
+  &__block {
+
+  }
+}
