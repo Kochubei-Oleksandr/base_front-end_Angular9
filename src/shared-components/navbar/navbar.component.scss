@@ -8,27 +8,29 @@
     max-width: $max-width;
     height: 50px;
     margin: 0 auto;
-    .section-left {
-      display: flex;
-      align-items: center;
+  }
+  &__section {
+    display: flex;
+    align-items: center;
+    .left-section {
       &__title {
         color: $green;
         margin: 0;
       }
     }
-    .section-right {
-      display: flex;
-      align-items: center;
-      &__auth-items {
+    .right-section {
+      &__auth {
         display: flex;
         align-items: center;
         color: $green;
-      }
-      &__auth-items {
-        cursor: pointer;
-      }
-      &__login {
-        margin: 0 10px;
+        .auth {
+          &__item {
+            cursor: pointer;
+            &--login {
+              margin: 0 10px;
+            }
+          }
+        }
       }
     }
   }
