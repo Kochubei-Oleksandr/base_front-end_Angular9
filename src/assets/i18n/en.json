@@ -1,0 +1,5 @@
+{
+  "test": "test EN",
+  "EMAIL_ERROR": "Please enter a valid email address",
+  "REQUIRED_ERROR": "{{name}} is required"
+}

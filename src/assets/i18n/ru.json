@@ -1,0 +1,5 @@
+{
+  "test": "тест RU",
+  "EMAIL_ERROR": "Введите корректный E-mail адресс",
+  "REQUIRED_ERROR": "{{name}} - обязательное поле"
+}
