@@ -1,8 +1,16 @@
 <div class="login">
   <form class="login__form form" [formGroup]="loginFormGroup">
 
-    <mat-form-field class="form__email">
-      <input matInput placeholder="E-mail" formControlName="email">
+    <mat-form-field class="form__item">
+      <input
+        matInput
+        placeholder="E-mail"
+        formControlName="email"
+        maxlength="50"
+      >
+      <mat-hint align="end">
+        {{loginFormGroup.get('email').value.length}} / 50
+      </mat-hint>
       <mat-error *ngIf="loginFormGroup.get('email').hasError('email')">
         {{ 'EMAIL_ERROR' | translate }}
       </mat-error>
@@ -11,14 +19,30 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="form__password">
-      <input matInput placeholder="password" formControlName="password">
+    <mat-form-field class="form__item">
+      <input
+        matInput
+        placeholder="{{'Password' | translate}}"
+        formControlName="password"
+        maxlength="30"
+      >
+      <mat-hint align="end">
+        {{loginFormGroup.get('password').value.length}} / 30
+      </mat-hint>
       <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">
         {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
       </mat-error>
     </mat-form-field>
 
-    <button (click)="submit()" mat-button class="form__button">Login</button>
+    <button
+      (click)="submit()"
+      mat-raised-button
+      color="accent"
+      class="form__button"
+      [disabled]="!loginFormGroup.valid"
+    >
+      {{'Sign in' | translate}}
+    </button>
 
   </form>
 </div>

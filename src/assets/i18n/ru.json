@@ -1,5 +1,9 @@
 {
-  "test": "тест RU",
   "EMAIL_ERROR": "Введите корректный E-mail адресс",
-  "REQUIRED_ERROR": "{{name}} - обязательное поле"
+  "REQUIRED_ERROR": "{{name}} - обязательное поле",
+  "MAX_ERROR": "Максимальное количество символов -  {{number}}",
+
+  "Sign in": "Вход",
+  "Register": "Регистрация",
+  "Password": "Пароль"
 }

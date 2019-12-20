@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
-import {MatDialogModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule} from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 //landing modules
 import { LandingComponent } from '../components/landing/landing.component';
@@ -44,7 +44,8 @@ const LANDING_MODULES = [
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

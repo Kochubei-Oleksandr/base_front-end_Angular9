@@ -2,5 +2,13 @@
   &__form {
     display: flex;
     flex-direction: column;
+    .form {
+      &__item {
+
+      }
+      &__button {
+        margin-top: 10px;
+      }
+    }
   }
 }

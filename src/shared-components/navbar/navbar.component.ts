@@ -27,7 +27,9 @@ export class NavbarComponent {
   }
 
   openLoginDialog() {
-    let dialogRef = this.dialog.open(LoginComponent);
+    let dialogRef = this.dialog.open(LoginComponent, {
+      width: '350px'
+    });
     dialogRef.afterClosed().subscribe(() => {
 
     });

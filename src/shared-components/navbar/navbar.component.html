@@ -8,10 +8,10 @@
     <div class="navbar__section right-section">
       <div class="right-section__auth auth">
         <p (click)="openLoginDialog()" [ngClass]="['auth__login', getClassDecorator('auth__login')]">
-          Sign in
+          {{'Sign in' | translate}}
         </p>
         <p [ngClass]="['auth__registration', getClassDecorator('auth__registration')]">
-          Register
+          {{'Register' | translate}}
         </p>
       </div>
     </div>
