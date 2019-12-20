@@ -1,17 +1,17 @@
-<div [ngClass]="['navbar', getNavbarStyle('navbar')]">
+<div [ngClass]="['navbar', getClassDecorator('navbar')]">
   <div class="navbar__container">
     <div class="navbar__section left-section">
-      <h1 [ngClass]="['left-section__title', getTextColor('left-section__title')]">
+      <h1 [ngClass]="['left-section__title', getClassDecorator('left-section__title')]">
         SmartFit
       </h1>
     </div>
     <div class="navbar__section right-section">
       <div class="right-section__auth auth">
-        <p [ngClass]="['auth__item', 'auth__item--login', getTextColor('auth__item')]">
-          Login
+        <p [ngClass]="['auth__login', getClassDecorator('auth__login')]">
+          Sign in
         </p>
-        <p [ngClass]="['auth__item', 'auth__item--registration', getTextColor('auth__item')]">
-          Registration
+        <p [ngClass]="['auth__registration', getClassDecorator('auth__registration')]">
+          Register
         </p>
       </div>
     </div>

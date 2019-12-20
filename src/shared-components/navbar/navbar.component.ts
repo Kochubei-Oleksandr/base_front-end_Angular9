@@ -10,18 +10,13 @@ export class NavbarComponent {
   public isSticky: boolean = false;
 
   @HostListener('window:scroll', ['$event'])
-  checkScroll() {
+  checkScroll():void {
     if (this.isLanding === true) {
       this.isSticky = window.pageYOffset >= 1;
     }
   }
 
-  getTextColor(mainClass: string): string {
-    return this.isLanding
-      ? this.isSticky ? (mainClass + '--green') : (mainClass + '--white')
-      : (mainClass + '--green');
-  }
-  getNavbarStyle(mainClass: string): string {
+  getClassDecorator(mainClass: string): string {
     return this.isLanding
       ? this.isSticky ? (mainClass + '--sticky') : (mainClass + '--no-sticky')
       : (mainClass + '--no-landing');

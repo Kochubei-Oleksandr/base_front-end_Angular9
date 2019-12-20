@@ -3,7 +3,7 @@
 
 .first-section {
   height: 100vh;
-  @include horizontal-gradient($green, $light-green);
+  @include horizontal-gradient($dark-green, $green);
   &__container {
     height: 100%;
     max-width: 1600px;

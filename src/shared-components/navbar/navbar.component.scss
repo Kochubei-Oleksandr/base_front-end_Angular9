@@ -26,11 +26,15 @@
     align-items: center;
     .left-section {
       &__title {
+        font-size: 23px;
         margin: 0;
-        &--white {
+        &--sticky {
+          color: $green;
+        }
+        &--no-sticky {
           color: white;
         }
-        &--green {
+        &--no-landing {
           color: $green;
         }
       }
@@ -41,16 +45,35 @@
         align-items: center;
         color: #fff;
         .auth {
-          &__item {
+          &__login {
             cursor: pointer;
-            &--login {
-              margin: 0 10px;
+            margin: 0 10px;
+            &--sticky {
+              color: black;
             }
-            &--white {
+            &--no-sticky {
               color: white;
             }
-            &--green {
+            &--no-landing {
+              color: black;
+            }
+          }
+          &__registration {
+            padding: 4px 9px;
+            border-radius: 10px;
+            cursor: pointer;
+            z-index: 99;
+            &--sticky {
+              color: white;
+              background-color: $green;
+            }
+            &--no-sticky {
               color: $green;
+              background-color: white;
+            }
+            &--no-landing {
+              color: white;
+              background-color: $green;
             }
           }
         }

@@ -8,6 +8,7 @@ import { FirstSectionComponent } from '../components/landing/first-section/first
 import { AppComponent } from './app.component';
 import { NavbarComponent } from '../shared-components/navbar/navbar.component';
 import { FoodPlansComponent } from '../components/food-plans/food-plans.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const LANDING_MODULES = [
   LandingComponent,
@@ -23,7 +24,8 @@ const LANDING_MODULES = [
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
