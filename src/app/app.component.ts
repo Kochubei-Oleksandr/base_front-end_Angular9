@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {LanguageService} from '../shared/services/language.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   constructor (
     private _router: Router,
-    private _translateService: TranslateService
+    private _languageService: LanguageService,
   ) {
-    _translateService.addLangs(['en', 'ru']);
-    _translateService.setDefaultLang('en');
+    _languageService.ngOnInit();
   }
 
   isHomeRoute() {

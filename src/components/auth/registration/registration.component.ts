@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
-import {LINKS_FOR_DOCUMENTS} from '../../../shared/constants/links-for-documents/links-for-documents.const';
+import {LINKS_FOR_DOCUMENTS} from '../../../shared/constants/links-for-documents.const';
 import {PdfModalDialogComponent} from '../../../shared-components/pdf-modal-dialog/pdf-modal-dialog.component';
 
 @Component({

@@ -1,0 +1,16 @@
+<div class="language-switching lang">
+  <p
+    [ngClass]="['lang__icon', 'lang__icon'+classDecorator]"
+    [matMenuTriggerFor]="menu"
+  >
+    {{languageService.currentLanguage | capitalize}}
+  </p>
+  <mat-menu #menu="matMenu">
+    <button (click)="setServiceLanguage(serviceLanguages.en)" mat-menu-item>
+      {{serviceLanguages.en | capitalize}}
+    </button>
+    <button (click)="setServiceLanguage(serviceLanguages.ru)" mat-menu-item>
+      {{serviceLanguages.ru | capitalize}}
+    </button>
+  </mat-menu>
+</div>

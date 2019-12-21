@@ -48,14 +48,19 @@
         .auth {
           &__login {
             cursor: pointer;
-            margin: 0 10px;
+            margin: 0 15px;
+            padding: 3px 9px;
+            border-radius: 10px;
             &--sticky {
+              border: 1px solid black;
               color: black;
             }
             &--no-sticky {
+              border: 1px solid white;
               color: white;
             }
             &--no-landing {
+              border: 1px solid black;
               color: black;
             }
           }

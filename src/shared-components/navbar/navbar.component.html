@@ -6,6 +6,10 @@
       </h1>
     </div>
     <div class="navbar__section right-section">
+      <language-switching
+        [classDecorator]="getClassDecorator('')"
+      >
+      </language-switching>
       <div class="right-section__auth auth">
         <p (click)="openLoginDialog()" [ngClass]="['auth__login', getClassDecorator('auth__login')]">
           {{'Sign in' | translate}}
