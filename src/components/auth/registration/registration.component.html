@@ -1,0 +1,78 @@
+<div class="registration">
+  <form class="registration__form form" [formGroup]="registerFormGroup">
+
+    <mat-form-field class="form__item">
+      <input
+        matInput
+        placeholder="E-mail"
+        formControlName="email"
+        maxlength="50"
+      >
+      <mat-hint align="end">
+        {{registerFormGroup.get('email').value.length}} / 50
+      </mat-hint>
+      <mat-error *ngIf="registerFormGroup.hasError('email', 'email')">
+        {{ 'EMAIL_ERROR' | translate }}
+      </mat-error>
+      <mat-error *ngIf="registerFormGroup.hasError('required', 'email')">
+        {{ 'REQUIRED_ERROR' | translate: {name: 'E-mail'} }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form__item">
+      <input
+        matInput
+        placeholder="{{'Password' | translate}}"
+        formControlName="password"
+        maxlength="30"
+        type="password"
+      >
+      <mat-hint align="end">
+        {{registerFormGroup.get('password').value.length}} / 30
+      </mat-hint>
+      <mat-error *ngIf="registerFormGroup.hasError('required', 'password')">
+        {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form__item">
+      <input
+        matInput
+        placeholder="{{'Confirmation password' | translate}}"
+        formControlName="confirmPassword"
+        maxlength="30"
+        type="password"
+      >
+      <mat-hint align="end">
+        {{registerFormGroup.get('confirmPassword').value.length}} / 30
+      </mat-hint>
+      <mat-error *ngIf="registerFormGroup.hasError('notSame', 'confirmPassword')">
+        {{'Passwords do not match' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form__document-links documents">
+      <p class="documents__item documents__item--first" (click)="openIframePDFDialog(privacyPDFSrc)">
+        {{'Privacy' | translate}}
+      </p>
+      <p class="documents__item" (click)="openIframePDFDialog(agreementPDFSrc)">
+        {{'User agreement' | translate}}
+      </p>
+    </div>
+
+    <mat-checkbox class="form__checkbox" formControlName="usagePolicy">
+      {{'I agree to the terms of service'}}
+    </mat-checkbox>
+
+    <button
+      (click)="submit()"
+      mat-raised-button
+      color="accent"
+      class="form__button"
+      [disabled]="!registerFormGroup.valid"
+    >
+      {{'Sign in' | translate}}
+    </button>
+
+  </form>
+</div>

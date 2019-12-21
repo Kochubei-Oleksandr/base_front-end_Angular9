@@ -26,6 +26,7 @@
     align-items: center;
     .left-section {
       &__title {
+        cursor: pointer;
         font-size: 23px;
         margin: 0;
         &--sticky {

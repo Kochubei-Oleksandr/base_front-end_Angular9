@@ -6,15 +6,11 @@
         matInput
         placeholder="E-mail"
         formControlName="email"
-        maxlength="50"
       >
-      <mat-hint align="end">
-        {{loginFormGroup.get('email').value.length}} / 50
-      </mat-hint>
-      <mat-error *ngIf="loginFormGroup.get('email').hasError('email')">
+      <mat-error *ngIf="loginFormGroup.hasError('email', 'email')">
         {{ 'EMAIL_ERROR' | translate }}
       </mat-error>
-      <mat-error *ngIf="loginFormGroup.get('email').hasError('required')">
+      <mat-error *ngIf="loginFormGroup.hasError('required', 'email')">
         {{ 'REQUIRED_ERROR' | translate: {name: 'E-mail'} }}
       </mat-error>
     </mat-form-field>
@@ -24,12 +20,9 @@
         matInput
         placeholder="{{'Password' | translate}}"
         formControlName="password"
-        maxlength="30"
+        type="password"
       >
-      <mat-hint align="end">
-        {{loginFormGroup.get('password').value.length}} / 30
-      </mat-hint>
-      <mat-error *ngIf="loginFormGroup.get('password').hasError('required')">
+      <mat-error *ngIf="loginFormGroup.hasError('required', 'password')">
         {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
       </mat-error>
     </mat-form-field>

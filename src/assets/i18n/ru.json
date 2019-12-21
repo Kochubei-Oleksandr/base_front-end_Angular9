@@ -5,5 +5,9 @@
 
   "Sign in": "Вход",
   "Register": "Регистрация",
-  "Password": "Пароль"
+  "Password": "Пароль",
+  "Confirmation password": "Пароль подтверждения",
+  "Passwords do not match": "Пароли не соответствуют",
+  "I agree to the terms of service": "Я согласен с условиями использования сервиса"
+
 }

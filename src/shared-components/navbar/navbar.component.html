@@ -1,7 +1,7 @@
 <div [ngClass]="['navbar', getClassDecorator('navbar')]">
   <div class="navbar__container">
     <div class="navbar__section left-section">
-      <h1 [ngClass]="['left-section__title', getClassDecorator('left-section__title')]">
+      <h1 (click)="goToHomePage()" [ngClass]="['left-section__title', getClassDecorator('left-section__title')]">
         SmartFit
       </h1>
     </div>
@@ -10,7 +10,7 @@
         <p (click)="openLoginDialog()" [ngClass]="['auth__login', getClassDecorator('auth__login')]">
           {{'Sign in' | translate}}
         </p>
-        <p [ngClass]="['auth__registration', getClassDecorator('auth__registration')]">
+        <p (click)="openRegistrationDialog()" [ngClass]="['auth__registration', getClassDecorator('auth__registration')]">
           {{'Register' | translate}}
         </p>
       </div>

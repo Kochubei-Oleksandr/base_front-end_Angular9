@@ -1,6 +1,8 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {LoginComponent} from '../../components/login/login.component';
+import {LoginComponent} from '../../components/auth/login/login.component';
 import {MatDialog} from '@angular/material';
+import {RegistrationComponent} from '../../components/auth/registration/registration.component';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'navbar',
@@ -11,7 +13,11 @@ export class NavbarComponent {
   @Input() isLanding: boolean;
   public isSticky: boolean = false;
 
-  constructor (public dialog: MatDialog) {}
+  constructor (
+    private _router: Router,
+    public dialog: MatDialog
+  ) {
+  }
 
   @HostListener('window:scroll', ['$event'])
   checkScroll():void {
@@ -25,7 +31,6 @@ export class NavbarComponent {
       ? this.isSticky ? (mainClass + '--sticky') : (mainClass + '--no-sticky')
       : (mainClass + '--no-landing');
   }
-
   openLoginDialog() {
     let dialogRef = this.dialog.open(LoginComponent, {
       width: '350px'
@@ -33,5 +38,16 @@ export class NavbarComponent {
     dialogRef.afterClosed().subscribe(() => {
 
     });
+  }
+  openRegistrationDialog() {
+    let dialogRef = this.dialog.open(RegistrationComponent, {
+      width: '350px'
+    });
+    dialogRef.afterClosed().subscribe(() => {
+
+    });
+  }
+  goToHomePage() {
+    this._router.navigate(['/']);
   }
 }
