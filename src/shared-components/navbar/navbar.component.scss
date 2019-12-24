@@ -42,11 +42,13 @@
     }
     .right-section {
       &__auth {
-        display: flex;
-        align-items: center;
         color: #fff;
         .auth {
-          &__login {
+          &__authenticated {
+            display: flex;
+            align-items: center;
+          }
+          &__login, &__logout {
             cursor: pointer;
             margin: 0 15px;
             padding: 3px 9px;

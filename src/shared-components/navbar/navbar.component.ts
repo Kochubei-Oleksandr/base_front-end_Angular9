@@ -3,6 +3,7 @@ import {LoginComponent} from '../../components/auth/login/login.component';
 import {MatDialog} from '@angular/material';
 import {RegistrationComponent} from '../../components/auth/registration/registration.component';
 import {Router} from '@angular/router';
+import {AuthService} from '../../shared/services/auth/auth.service';
 
 @Component({
     selector: 'navbar',
@@ -15,7 +16,8 @@ export class NavbarComponent {
 
   constructor (
     private _router: Router,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _authService: AuthService
   ) { }
 
   @HostListener('window:scroll', ['$event'])
@@ -25,6 +27,12 @@ export class NavbarComponent {
     }
   }
 
+  isLoggedIn() {
+    return AuthService.isLoggedIn();
+  }
+  logout() {
+    this._authService.doLogout();
+  }
   getClassDecorator(mainClass: string): string {
     return this.isLanding
       ? this.isSticky ? (mainClass + '--sticky') : (mainClass + '--no-sticky')
