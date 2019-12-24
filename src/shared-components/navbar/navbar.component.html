@@ -1,0 +1,30 @@
+<div [ngClass]="['navbar', getClassDecorator('navbar')]">
+  <div class="navbar__container">
+    <div class="navbar__section left-section">
+      <h1 (click)="goToHomePage()" [ngClass]="['left-section__title', getClassDecorator('left-section__title')]">
+        SmartFit
+      </h1>
+    </div>
+    <div class="navbar__section right-section">
+      <language-switching
+        [classDecorator]="getClassDecorator('')"
+      >
+      </language-switching>
+      <div class="right-section__auth auth">
+        <div class="auth__authenticated" *ngIf="!isLoggedIn(); else not_authenticated">
+          <p (click)="openLoginDialog()" [ngClass]="['auth__login', getClassDecorator('auth__login')]">
+            {{'Sign in' | translate}}
+          </p>
+          <p (click)="openRegistrationDialog()" [ngClass]="['auth__registration', getClassDecorator('auth__registration')]">
+            {{'Register' | translate}}
+          </p>
+        </div>
+        <ng-template #not_authenticated>
+          <p (click)="logout()" [ngClass]="['auth__logout', getClassDecorator('auth__logout')]">
+            {{'Log out' | translate}}
+          </p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+.language-switching {
+  display: flex;
+  align-items: center;
+  .lang {
+    &__icon {
+      color: white;
+      cursor: pointer;
+      &--sticky {
+        color: black;
+      }
+      &--no-sticky {
+        color: white;
+      }
+      &--no-landing {
+        color: black;
+      }
+    }
+  }
+}
