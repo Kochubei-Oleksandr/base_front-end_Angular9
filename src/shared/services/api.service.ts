@@ -37,6 +37,7 @@ export class ApiService {
     if (error.status !== 422) {
       let message = error.statusText;
 
+      //TODO check it
       let regexError500 = RegExp('5[0-9][0-9]');
       if(regexError500.test(String(error.status))) {
         message = 'Server error, try again later';

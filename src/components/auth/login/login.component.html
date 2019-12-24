@@ -28,6 +28,7 @@
     </mat-form-field>
 
     <button
+      *ngIf="isRequestComplete; else spinner"
       (click)="submit()"
       mat-raised-button
       color="accent"
@@ -36,6 +37,9 @@
     >
       {{'Sign in' | translate}}
     </button>
+    <ng-template #spinner>
+      <progress-spinner [diameter]="50"></progress-spinner>
+    </ng-template>
 
   </form>
 </div>

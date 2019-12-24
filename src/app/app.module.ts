@@ -9,7 +9,8 @@ import {
   MatCheckboxModule,
   MatMenuModule,
   MatIconModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -33,6 +34,7 @@ import {LogNotificationService} from '../shared/services/log-notification.servic
 import {TokenInterceptor} from '../shared/interceptors/token.interceptor';
 import {ApiConfigInterceptor} from '../shared/interceptors/api-config.interceptor';
 import {ServerValidationFormService} from '../shared/services/server-validation-form.service';
+import {ProgressSpinnerComponent} from '../shared-components/progress-spinner/progress-spinner.component';
 
 const LANDING_MODULES = [
   LandingComponent,
@@ -48,6 +50,7 @@ const SHARED_COMPONENTS = [
   NavbarComponent,
   PdfModalDialogComponent,
   LanguageSwitchingComponent,
+  ProgressSpinnerComponent
 ];
 const SHARED_PIPES = [
   CapitalizePipe
@@ -75,7 +78,8 @@ const ANGULAR_MATERIAL_MODULES = [
   MatCheckboxModule,
   MatMenuModule,
   MatIconModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatProgressSpinnerModule
 ];
 
 @NgModule({
