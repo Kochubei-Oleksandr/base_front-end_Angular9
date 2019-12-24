@@ -17,6 +17,9 @@
       <mat-error *ngIf="registerFormGroup.hasError('required', 'email')">
         {{ 'REQUIRED_ERROR' | translate: {name: 'E-mail'} }}
       </mat-error>
+      <mat-error *ngIf="serverValidationForm.isServerValidationError('email')">
+        {{ serverValidationForm.getServerValidationError('email') }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form__item">
@@ -33,20 +36,23 @@
       <mat-error *ngIf="registerFormGroup.hasError('required', 'password')">
         {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
       </mat-error>
+      <mat-error *ngIf="serverValidationForm.isServerValidationError('password')">
+        {{ serverValidationForm.getServerValidationError('password') | translate }}
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form__item">
       <input
         matInput
         placeholder="{{'Confirmation password' | translate}}"
-        formControlName="confirmPassword"
+        formControlName="password_confirmation"
         maxlength="30"
         type="password"
       >
       <mat-hint align="end">
-        {{registerFormGroup.get('confirmPassword').value.length}} / 30
+        {{registerFormGroup.get('password_confirmation').value.length}} / 30
       </mat-hint>
-      <mat-error *ngIf="registerFormGroup.hasError('notSame', 'confirmPassword')">
+      <mat-error *ngIf="registerFormGroup.hasError('notSame', 'password_confirmation')">
         {{'Passwords do not match' | translate}}
       </mat-error>
     </mat-form-field>
@@ -60,8 +66,11 @@
       </p>
     </div>
 
-    <mat-checkbox class="form__checkbox" formControlName="usagePolicy">
+    <mat-checkbox class="form__checkbox" formControlName="usage_policy">
       {{'I agree to the terms of service'}}
+      <mat-error *ngIf="serverValidationForm.isServerValidationError('usage_policy')">
+        {{ serverValidationForm.getServerValidationError('usage_policy') | translate }}
+      </mat-error>
     </mat-checkbox>
 
     <button

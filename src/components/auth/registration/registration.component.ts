@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MatDialog} from '@angular/material';
 import {LINKS_FOR_DOCUMENTS} from '../../../shared/constants/links-for-documents.const';
 import {PdfModalDialogComponent} from '../../../shared-components/pdf-modal-dialog/pdf-modal-dialog.component';
+import {AuthService} from '../../../shared/services/auth/auth.service';
+import {ServerValidationFormService} from '../../../shared/services/server-validation-form.service';
 
 @Component({
   selector: 'registration',
@@ -16,7 +18,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder,
-    public dialog: MatDialog
+    private _authService: AuthService,
+    private _dialog: MatDialog,
+    public serverValidationForm: ServerValidationFormService,
   ) {
   }
 
@@ -27,37 +31,44 @@ export class RegistrationComponent implements OnInit {
     this.registerFormGroup = this._fb.group({
       email: ['', [Validators.email, Validators.required]],
       password: ['', [Validators.required]],
-      confirmPassword: [''],
-      usagePolicy: [false, [Validators.required]],
+      password_confirmation: [''],
+      usage_policy: [false, [Validators.required]],
     }, {validator: [this.checkPasswords, this.checkUsagePolicy]});
   }
   checkPasswords(group: FormGroup) {
     let pass = group.controls['password'];
-    let confirmPass = group.controls['confirmPassword'];
+    let confirmPass = group.controls['password_confirmation'];
 
     return pass.value === confirmPass.value
       ? confirmPass.setErrors(null)
       : confirmPass.setErrors({ notSame: true })
   }
   checkUsagePolicy(group: FormGroup) {
-    let usagePolicy = group.controls['usagePolicy'];
+    let usagePolicy = group.controls['usage_policy'];
 
     return usagePolicy.value
       ? usagePolicy.setErrors(null)
       : usagePolicy.setErrors({ notUsagePolicy: true })
   }
   openIframePDFDialog(linkToPdf) {
-    let dialogRef = this.dialog.open(PdfModalDialogComponent, {
+    this._dialog.open(PdfModalDialogComponent, {
       width: '800px',
       height: '600px',
       data: {
         linkToPdf: linkToPdf,
       }
     });
-    dialogRef.afterClosed().subscribe(() => {});
   }
   submit() {
-    console.log('form', this.registerFormGroup.get('confirmPassword').hasError('notSame'));
-    console.log('all', this.registerFormGroup);
+    this._authService.register(this.registerFormGroup.value).subscribe(
+      () => {
+        this._dialog.closeAll();
+      },
+      (res) => {
+        if (res.status === 422) {
+          this.serverValidationForm.showErrors(res.error.errors, this.registerFormGroup.controls);
+        }
+      }
+    );
   }
 }

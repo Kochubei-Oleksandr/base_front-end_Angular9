@@ -15,9 +15,8 @@ export class NavbarComponent {
 
   constructor (
     private _router: Router,
-    public dialog: MatDialog
-  ) {
-  }
+    private _dialog: MatDialog
+  ) { }
 
   @HostListener('window:scroll', ['$event'])
   checkScroll():void {
@@ -32,19 +31,13 @@ export class NavbarComponent {
       : (mainClass + '--no-landing');
   }
   openLoginDialog() {
-    let dialogRef = this.dialog.open(LoginComponent, {
+    this._dialog.open(LoginComponent, {
       width: '350px'
-    });
-    dialogRef.afterClosed().subscribe(() => {
-
     });
   }
   openRegistrationDialog() {
-    let dialogRef = this.dialog.open(RegistrationComponent, {
+    this._dialog.open(RegistrationComponent, {
       width: '350px'
-    });
-    dialogRef.afterClosed().subscribe(() => {
-
     });
   }
   goToHomePage() {

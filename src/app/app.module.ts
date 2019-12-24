@@ -8,11 +8,12 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatMenuModule,
-  MatIconModule
+  MatIconModule,
+  MatSnackBarModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //landing modules
@@ -28,6 +29,10 @@ import {LoginComponent} from '../components/auth/login/login.component';
 import {RegistrationComponent} from '../components/auth/registration/registration.component';
 import {CapitalizePipe} from '../shared/pipes/capitalize.pipe';
 import {LanguageService} from '../shared/services/language.service';
+import {LogNotificationService} from '../shared/services/log-notification.service';
+import {TokenInterceptor} from '../shared/interceptors/token.interceptor';
+import {ApiConfigInterceptor} from '../shared/interceptors/api-config.interceptor';
+import {ServerValidationFormService} from '../shared/services/server-validation-form.service';
 
 const LANDING_MODULES = [
   LandingComponent,
@@ -48,7 +53,19 @@ const SHARED_PIPES = [
   CapitalizePipe
 ];
 const SHARED_SERVICES = [
-  LanguageService
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi : true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: ApiConfigInterceptor,
+    multi : true
+  },
+  LanguageService,
+  LogNotificationService,
+  ServerValidationFormService,
 ];
 const ANGULAR_MATERIAL_MODULES = [
   MatDialogModule,
@@ -57,7 +74,8 @@ const ANGULAR_MATERIAL_MODULES = [
   MatButtonModule,
   MatCheckboxModule,
   MatMenuModule,
-  MatIconModule
+  MatIconModule,
+  MatSnackBarModule
 ];
 
 @NgModule({

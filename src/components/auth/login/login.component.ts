@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../../../shared/services/auth/auth.service';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'login',
@@ -8,7 +10,12 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   public loginFormGroup: FormGroup;
-  constructor(private _fb: FormBuilder) {}
+
+  constructor(
+    private _fb: FormBuilder,
+    private _authService: AuthService,
+    private _dialog: MatDialog
+  ) { }
 
   ngOnInit() {
     this.createLoginForm();
@@ -20,8 +27,8 @@ export class LoginComponent implements OnInit {
     });
   }
   submit() {
-    // console.log('form', this.loginFormGroup.get('password').hasError('required'));
-    console.log('form', this.loginFormGroup.get('password').hasError('require'));
-    console.log('all', this.loginFormGroup);
+    this._authService.login(this.loginFormGroup.value).subscribe(() => {
+      this._dialog.closeAll();
+    });
   }
 }
