@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material';
 import {RegistrationComponent} from '../../components/auth/registration/registration.component';
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'navbar',
@@ -17,7 +18,8 @@ export class NavbarComponent {
   constructor (
     private _router: Router,
     private _dialog: MatDialog,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _translateService: TranslateService,
   ) { }
 
   @HostListener('window:scroll', ['$event'])
@@ -31,7 +33,11 @@ export class NavbarComponent {
     return AuthService.isLoggedIn();
   }
   logout() {
-    this._authService.doLogout();
+    if (confirm(
+      this._translateService.instant('Are you sure you want to go out?')
+    )) {
+      this._authService.doLogout();
+    }
   }
   getClassDecorator(mainClass: string): string {
     return this.isLanding
@@ -50,5 +56,17 @@ export class NavbarComponent {
   }
   goToHomePage() {
     this._router.navigate(['/']);
+  }
+  goToOrdersHistory() {
+    // this._router.navigate(['/']);
+  }
+  goToDiary() {
+    // this._router.navigate(['/']);
+  }
+  goToProgress() {
+    // this._router.navigate(['/']);
+  }
+  goToPersonal() {
+    // this._router.navigate(['/personal']);
   }
 }

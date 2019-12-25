@@ -28,7 +28,7 @@
       &__title {
         cursor: pointer;
         font-size: 23px;
-        margin: 0;
+        margin: 0 15px;
         &--sticky {
           color: $green;
         }
@@ -41,16 +41,19 @@
       }
     }
     .right-section {
+      &__lang {
+        margin-right: 15px;
+      }
       &__auth {
         color: #fff;
         .auth {
-          &__authenticated {
+          &__wrapper {
             display: flex;
             align-items: center;
           }
-          &__login, &__logout {
+          &__login {
             cursor: pointer;
-            margin: 0 15px;
+            margin-right: 15px;
             padding: 3px 9px;
             border-radius: 10px;
             &--sticky {
@@ -66,7 +69,8 @@
               color: black;
             }
           }
-          &__registration {
+          &__registration, &__menu {
+            margin-right: 15px;
             padding: 4px 9px;
             border-radius: 10px;
             cursor: pointer;
