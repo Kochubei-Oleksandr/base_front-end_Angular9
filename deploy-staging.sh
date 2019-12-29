@@ -8,4 +8,5 @@ git checkout .
 git checkout staging
 git pull
 
+npm install
 npm run build
