@@ -1,7 +1,7 @@
 {
   "EMAIL_ERROR": "Введите корректный E-mail адресс",
-  "REQUIRED_ERROR": "{{name}} - обязательное поле",
-  "MAX_ERROR": "Максимальное количество символов -  {{number}}",
+  "REQUIRED_ERROR": "Обязательное поле",
+  "MAX_ERROR": "Максимальное количество символов - {{number}}",
 
   "Sign in": "Вход",
   "Register": "Регистрация",
@@ -12,9 +12,19 @@
   "Log out": "Выйти",
   "Are you sure you want to go out?": "Вы уверены, что хотите выйти?",
   "Menu": "Меню",
+  "Food plans": "Планы питания",
   "Orders history": "История заказов",
   "Diary": "Дневник",
   "Progress": "Прогресс",
-  "Personal": "Персональная"
+  "Personal": "Персональная",
+  "Personal data": "Персональные данные",
+  "Save": "Сохранить",
+  "Your name": "Ваше имя",
+  "Your E=mail": "Ваш E-mail",
+  "Your phone number": "Ваш номер телефона",
+  "Pick country": "Выберите вашу страну",
+  "Pick region": "Выберите ваш регион",
+  "Pick city": "Выберите ваш город",
+  "Your delivery address": "Ваш адрес доставки"
 
 }

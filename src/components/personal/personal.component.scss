@@ -1,0 +1,61 @@
+@import 'abstracts/constants';
+
+.personal {
+  margin: 0 auto;
+  max-width: $max-width;
+  &--content {
+    margin: $margin-top-content $margin-sides-content;
+  }
+  &__user-data {
+    .main-user-data {
+      &__header {
+        display: flex;
+        justify-content: space-between;
+        .header {
+          &__title {
+            display: flex;
+            align-items: center;
+            color: $black;
+            font-weight: 200;
+          }
+          &__logout {
+
+          }
+        }
+      }
+      &__content {
+        margin-top: 5px;
+        background-color: $light-gray;
+        border-radius: $border-radius;
+        .form {
+          &__content {
+            display: flex;
+            padding: 10px;
+            &__wrapper {
+              display: flex;
+              flex-flow: row wrap;
+              .item {
+                &__wrapper {
+                  display: contents;
+                }
+                &__core {
+                  margin-left: 10px;
+                  &--delivery-address {
+                    min-width: 150px;
+                    max-width: 500px;
+                    width: 100%;
+                  }
+                }
+              }
+            }
+          }
+          &__button {
+            display: flex;
+            justify-content: center;
+            padding: 5px 0 15px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,7 +15,7 @@
         {{ 'EMAIL_ERROR' | translate }}
       </mat-error>
       <mat-error *ngIf="registerFormGroup.hasError('required', 'email')">
-        {{ 'REQUIRED_ERROR' | translate: {name: 'E-mail'} }}
+        {{ 'REQUIRED_ERROR' | translate }}
       </mat-error>
       <mat-error *ngIf="serverValidationForm.isServerValidationError('email')">
         {{ serverValidationForm.getServerValidationError('email') }}
@@ -34,7 +34,7 @@
         {{registerFormGroup.get('password').value.length}} / 30
       </mat-hint>
       <mat-error *ngIf="registerFormGroup.hasError('required', 'password')">
-        {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
+        {{ 'REQUIRED_ERROR' | translate }}
       </mat-error>
       <mat-error *ngIf="serverValidationForm.isServerValidationError('password')">
         {{ serverValidationForm.getServerValidationError('password') | translate }}

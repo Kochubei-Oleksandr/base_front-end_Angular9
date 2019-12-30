@@ -10,7 +10,8 @@ import {
   MatMenuModule,
   MatIconModule,
   MatSnackBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import {ReactiveFormsModule} from '@angular/forms';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
@@ -35,6 +36,7 @@ import {TokenInterceptor} from '../shared/interceptors/token.interceptor';
 import {ApiConfigInterceptor} from '../shared/interceptors/api-config.interceptor';
 import {ServerValidationFormService} from '../shared/services/server-validation-form.service';
 import {ProgressSpinnerComponent} from '../shared-components/progress-spinner/progress-spinner.component';
+import {PersonalComponent} from '../components/personal/personal.component';
 
 const LANDING_MODULES = [
   LandingComponent,
@@ -44,7 +46,8 @@ const MAIN_COMPONENTS = [
   AppComponent,
   LoginComponent,
   RegistrationComponent,
-  FoodPlansComponent
+  FoodPlansComponent,
+  PersonalComponent
 ];
 const SHARED_COMPONENTS = [
   NavbarComponent,
@@ -79,7 +82,8 @@ const ANGULAR_MATERIAL_MODULES = [
   MatMenuModule,
   MatIconModule,
   MatSnackBarModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatAutocompleteModule
 ];
 
 @NgModule({

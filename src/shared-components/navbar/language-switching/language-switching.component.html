@@ -3,14 +3,16 @@
     [ngClass]="['lang__icon', 'lang__icon'+classDecorator]"
     [matMenuTriggerFor]="menu"
   >
-    {{languageService.currentLanguage | capitalize}}
+    {{getServiceLanguage() | capitalize}}
   </p>
   <mat-menu #menu="matMenu">
-    <button (click)="setServiceLanguage(serviceLanguages.en)" mat-menu-item>
-      {{serviceLanguages.en | capitalize}}
-    </button>
-    <button (click)="setServiceLanguage(serviceLanguages.ru)" mat-menu-item>
-      {{serviceLanguages.ru | capitalize}}
+    <button
+      *ngFor="let item of getMenuItems()"
+      [ngClass]="{'lang--active': isMenuItemActive(item)}"
+      (click)="setServiceLanguage(item)"
+      mat-menu-item
+    >
+      {{item | capitalize}}
     </button>
   </mat-menu>
 </div>

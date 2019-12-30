@@ -1,6 +1,6 @@
 {
   "EMAIL_ERROR": "Please enter a valid email address",
-  "REQUIRED_ERROR": "{{name}} is required",
+  "REQUIRED_ERROR": "Required field",
   "MAX_ERROR": "Maximum number of characters - {{number}}",
 
   "Sign in": "Sign in",
@@ -12,8 +12,19 @@
   "Log out": "Log out",
   "Are you sure you want to go out?": "Are you sure you want to go out?",
   "Menu": "Menu",
+  "Food plans": "Food plans",
   "Orders history": "Orders history",
   "Diary": "Diary",
   "Progress": "Progress",
-  "Personal": "Personal"
+  "Personal": "Personal",
+  "Personal data": "Personal data",
+  "Save": "Save",
+  "Your name": "Your name",
+  "Your E=mail": "Your E-mail",
+  "Your phone number": "Your phone number",
+  "Pick country": "Pick country",
+  "Pick region": "Pick region",
+  "Pick city": "Pick city",
+  "Your delivery address": "Your delivery address"
+
 }

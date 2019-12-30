@@ -9,14 +9,20 @@ import {LanguageService} from '../../../shared/services/language.service';
 })
 export class LanguageSwitchingComponent {
   @Input() classDecorator: string;
-  public serviceLanguages = SERVICE_LANGUAGES;
+  private _serviceLanguages = SERVICE_LANGUAGES;
 
-  constructor (
-    public languageService: LanguageService,
-  ) {
+  constructor (private _languageService: LanguageService) { }
+
+  getServiceLanguage(): string {
+    return this._languageService.currentLanguage;
   }
-
   setServiceLanguage(lang: string): void {
-    this.languageService.currentLanguage = lang;
+    this._languageService.currentLanguage = lang;
+  }
+  getMenuItems() {
+    return Object.values(this._serviceLanguages);
+  }
+  isMenuItemActive(lang: string): boolean {
+    return this.getServiceLanguage() === lang;
   }
 }

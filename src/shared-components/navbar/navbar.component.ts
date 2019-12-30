@@ -5,6 +5,9 @@ import {RegistrationComponent} from '../../components/auth/registration/registra
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth/auth.service';
 import {TranslateService} from '@ngx-translate/core';
+import {MENU_ITEMS} from '../../shared/constants/menu-items.const';
+import {IMenuItems} from '../../shared/interfaces/menu-items.interface';
+import {ROUTING_NAMES} from '../../shared/constants/routing-names.const';
 
 @Component({
     selector: 'navbar',
@@ -13,6 +16,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class NavbarComponent {
   @Input() isLanding: boolean;
+  private _menuItems: IMenuItems | any = MENU_ITEMS;
   public isSticky: boolean = false;
 
   constructor (
@@ -32,13 +36,6 @@ export class NavbarComponent {
   isLoggedIn() {
     return AuthService.isLoggedIn();
   }
-  logout() {
-    if (confirm(
-      this._translateService.instant('Are you sure you want to go out?')
-    )) {
-      this._authService.doLogout();
-    }
-  }
   getClassDecorator(mainClass: string): string {
     return this.isLanding
       ? this.isSticky ? (mainClass + '--sticky') : (mainClass + '--no-sticky')
@@ -55,18 +52,15 @@ export class NavbarComponent {
     });
   }
   goToHomePage() {
-    this._router.navigate(['/']);
+    this._router.navigate([ROUTING_NAMES.home]);
   }
-  goToOrdersHistory() {
-    // this._router.navigate(['/']);
+  getMenuItems() {
+    return Object.values(this._menuItems);
   }
-  goToDiary() {
-    // this._router.navigate(['/']);
+  isMenuItemActive(url: string): boolean {
+    return this._router.url === '/' + url;
   }
-  goToProgress() {
-    // this._router.navigate(['/']);
-  }
-  goToPersonal() {
-    // this._router.navigate(['/personal']);
+  goToSelectedPage(url: string) {
+    this._router.navigate([url]);
   }
 }
