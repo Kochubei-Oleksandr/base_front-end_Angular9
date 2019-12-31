@@ -80,8 +80,8 @@
                   formControlName="country_id"
                   [matAutocomplete]="auto"
                 >
-                <mat-autocomplete (optionSelected)="getRegions($event)" [displayWith]="displayFn" #auto="matAutocomplete">
-                  <mat-option *ngFor="let item of countries" [id]="item.id" [value]="item">
+                <mat-autocomplete (optionSelected)="onCountrySelected($event)" [displayWith]="getCountryName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of countries" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>
                 </mat-autocomplete>
@@ -95,7 +95,7 @@
             </div>
 
             <div class="item__wrapper">
-              <mat-form-field *ngIf="isShowRegion()" class="item__core">
+              <mat-form-field *ngIf="isCountrySelected()" class="item__core">
                 <input
                   type="text"
                   placeholder="{{'Pick region' | translate}}"
@@ -103,8 +103,8 @@
                   formControlName="region_id"
                   [matAutocomplete]="auto"
                 >
-                <mat-autocomplete (optionSelected)="getCities($event)" [displayWith]="displayFn" #auto="matAutocomplete">
-                  <mat-option *ngFor="let item of regions" [id]="item.id" [value]="item">
+                <mat-autocomplete (optionSelected)="onRegionSelected($event)" [displayWith]="getRegionName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of regions" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>
                 </mat-autocomplete>
@@ -118,7 +118,7 @@
             </div>
 
             <div class="item__wrapper">
-              <mat-form-field *ngIf="isShowCity()" class="item__core">
+              <mat-form-field *ngIf="isRegionSelected()" class="item__core">
                 <input
                   type="text"
                   placeholder="{{'Pick city' | translate}}"
@@ -126,8 +126,8 @@
                   formControlName="city_id"
                   [matAutocomplete]="auto"
                 >
-                <mat-autocomplete [displayWith]="displayFn" #auto="matAutocomplete">
-                  <mat-option *ngFor="let item of cities" [id]="item.id" [value]="item">
+                <mat-autocomplete [displayWith]="getCityName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of cities" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>
                 </mat-autocomplete>
@@ -166,7 +166,7 @@
         </form>
         <div class="form__button">
           <button
-            *ngIf="isRequestComplete; else spinner"
+            *ngIf="isRequestComplete(); else spinner"
             (click)="saveUserData()"
             mat-raised-button
             color="accent"

@@ -16,11 +16,11 @@ export class User extends ActiveRecord {
   public sex_id: number;
   public goal_id: number;
   public lifestyle_id: number;
+  public city_id: number;
 
-  //calculated & modified parameters that are not in the database
-  public city_id: object;
-  public region_id: object;
-  public country_id: object;
+  //calculated parameters that are not in the database
+  public region_id: number;
+  public country_id: number;
 
 
   protected fields() {
@@ -38,8 +38,8 @@ export class User extends ActiveRecord {
       'sex_id',
       'goal_id',
       'lifestyle_id',
-
       'city_id',
+
       'region_id',
       'country_id'
     ];

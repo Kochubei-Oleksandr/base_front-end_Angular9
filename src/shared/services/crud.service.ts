@@ -16,49 +16,74 @@ export abstract class CrudService extends ApiService implements ICrud {
   }
 
   public get<T>(params?: any): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
       .sendGet(this.getEndpoint(this.namespace), {params: params})
       .pipe(
-        map((res: Response | any) => res.map((item: T) => this.buildModel<T>(_.pickBy(item)))),
+        map((res: Response | any) => this.buildModelFromArray(res)),
         catchError((err) => this.onError(err))
       );
   }
 
   public view<T>(id?: number, query?: any): Observable<any> {
     let separate = id ? '/' + id : '';
+    this.setRequestStatus(false);
+
     return this
       .sendGet(this.getEndpoint(this.singularEndpoint + separate), {search: query})
       .pipe(
-        map((res: Response |any) => this.buildModel<T>(_.pickBy(res))),
+        map((res: Response |any) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public create<T>(data: T): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
       .sendPost(this.getEndpoint(this.singularEndpoint), data)
       .pipe(
-        map((res: Response) => this.buildModel<T>(res)),
+        map((res: Response) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public update<T>(id: number, data: T): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
       .sendPut(this.getEndpoint(this.singularEndpoint + '/' + id), data)
       .pipe(
-        map((res: Response) => this.buildModel<T>(_.pickBy(res))),
+        map((res: Response) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public remove<T>(id: number): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
       .sendDelete(this.getEndpoint(this.singularEndpoint + '/' + id))
       .pipe(
-        map((res: Response | any) => <T> _.pickBy(res)),
+        map((res: Response | any) => this.responseWithoutBuildModel(res)),
         catchError((err) => this.onError(err))
       )
+  }
+
+  public buildModelFromArray<T>(res) {
+    this.setRequestStatus(true);
+    return res.map((item: T) => this.buildModel<T>(_.pickBy(item)));
+  }
+
+  public buildModelFromObject<T>(res) {
+    this.setRequestStatus(true);
+    return this.buildModel<T>(_.pickBy(res));
+  }
+
+  public responseWithoutBuildModel<T>(res) {
+    this.setRequestStatus(true);
+    return <T> _.pickBy(res);
   }
 
   public buildModel<T>(data: any): T {

@@ -7,6 +7,7 @@ import {CityService} from '../../shared/services/components/location/city.servic
 import {UserService} from '../../shared/services/components/user.service';
 import {AuthService} from '../../shared/services/auth/auth.service';
 import {TranslateService} from '@ngx-translate/core';
+import {User} from '../../shared/models/user.class';
 
 @Component({
   selector: 'personal',
@@ -14,7 +15,6 @@ import {TranslateService} from '@ngx-translate/core';
   styleUrls: ['./personal.component.scss']
 })
 export class PersonalComponent implements OnInit {
-  public isRequestComplete: boolean = true;
   public personalForm: FormGroup;
   public countries: any = [];
   public regions: any = [];
@@ -33,8 +33,8 @@ export class PersonalComponent implements OnInit {
 
   ngOnInit() {
     this.createPersonalForm();
-    this.getUserData();
     this.getCountries();
+    this.getUserData();
   }
   createPersonalForm(): void {
     this.personalForm = this._fb.group({
@@ -53,73 +53,93 @@ export class PersonalComponent implements OnInit {
       this.countries = res;
     });
   }
-  getRegions(item) {
+  getRegions(id: number): void {
+    this._regionService.get({'country_id': id}).subscribe((res) => {
+      this.regions = res;
+    });
+  }
+  getCities(id: number): void {
+    this._cityService.get({'region_id': id}).subscribe((res) => {
+      this.cities = res;
+    });
+  }
+  getUserData(): void {
+    this._userService.view().subscribe((res: User) => {
+      this.getLocationsForUserData(res);
+    });
+  }
+  getLocationsForUserData(userData: User) {
+    if (userData.country_id) {
+      this._regionService.get({'country_id': userData.country_id}).subscribe((res) => {
+        this.regions = res;
+
+        this._cityService.get({'region_id': userData.region_id}).subscribe((res) => {
+          this.cities = res;
+          this.updateUserData(userData);
+        });
+      });
+    } else {
+      this.updateUserData(userData);
+    }
+  }
+  updateUserData(userData): void {
+    this.personalForm.patchValue(userData);
+  }
+  onCountrySelected(item): void {
     this.regions = [];
     this.cities = [];
     this.personalForm.controls['region_id'].setValue('');
     this.personalForm.controls['city_id'].setValue('');
 
-    this._regionService.get({'country_id': item.option.value.id}).subscribe((res) => {
-      this.regions = res;
-    });
+    this.getRegions(item.option.value);
   }
-  getCities(item) {
+  onRegionSelected(item): void {
     this.cities = [];
     this.personalForm.controls['city_id'].setValue('');
 
-    this._cityService.get({'region_id': item.option.value.id}).subscribe((res) => {
-      this.cities = res;
-    });
+    this.getCities(item.option.value);
   }
-  getUserData() {
-    this._userService.view().subscribe((res) => {
-      this.personalForm.patchValue(res);
-    });
+  isCountrySelected(): boolean {
+    return this.personalForm.get('country_id').value !== '';
   }
-  isShowRegion(): boolean {
-    return this.regions.length !== 0 || this.personalForm.get('region_id').value !== '';
-  }
-  isShowCity(): boolean {
-    return this.cities.length !== 0 || this.personalForm.get('city_id').value !== '';
+  isRegionSelected(): boolean {
+    return this.personalForm.get('region_id').value !== '';
   }
   isCitySelected(): boolean {
     return this.personalForm.get('city_id').value !== '';
   }
-  displayFn(item): string {
-    return item.name;
+  getCountryName(id: number): string {
+    if (!id) return '';
+
+    let index = this.countries.findIndex(item => item.id === id);
+    return this.countries[index].name;
   }
-  /**
-   * @from {id: 1, name: 'test', city_id: {id: 2, name: 'cityName'}}
-   * @to {id: 1, name: 'test', city_id: 2}
-   * @return finished object to be sent to the server
-   */
-  extractIdFromFormObjects(): object {
-    let obj = this.personalForm.value;
-    for (let key in obj) {
-      if (typeof obj[key] === 'object') {
-        obj[key] = obj[key]['id'];
-      }
-    }
-    return obj;
+  getRegionName(id: number): string {
+    if (!id) return '';
+
+    let index = this.regions.findIndex(item => item.id === id);
+    return this.regions[index].name;
   }
-  logout() {
+  getCityName(id: number): string {
+    if (!id) return '';
+
+    let index = this.cities.findIndex(item => item.id === id);
+    return this.cities[index].name;
+  }
+  logout(): void {
     if (confirm(
       this._translateService.instant('Are you sure you want to go out?')
     )) {
       this._authService.doLogout();
     }
   }
-  saveUserData() {
-    this.extractIdFromFormObjects();
-    this.isRequestComplete = false;
-
-    this._userService.update(this.personalForm.get('id').value, this.personalForm.value).subscribe(
-      (res) => {
-        this.isRequestComplete = true;
-      },
-      () => {
-        this.isRequestComplete = true;
-      }
-    );
+  isRequestComplete(): boolean {
+    return this._userService.getRequestStatus()
+      && this._countryService.getRequestStatus()
+      && this._regionService.getRequestStatus()
+      && this._cityService.getRequestStatus();
+  }
+  saveUserData(): void {
+    this._userService.update(this.personalForm.get('id').value, this.personalForm.value).subscribe();
   }
 }
