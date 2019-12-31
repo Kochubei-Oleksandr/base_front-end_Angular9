@@ -34,9 +34,7 @@ export class AuthService extends ApiService {
     return this.getToken() !== null;
   }
   doLogout():void {
-    let removeToken = localStorage.removeItem('token');
-    if (removeToken === null) {
-      this._router.navigate(['/']);
-    }
+    localStorage.removeItem('token');
+    this._router.navigate(['/']);
   }
 }

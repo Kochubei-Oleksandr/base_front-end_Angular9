@@ -7,7 +7,7 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class ApiService {
-  public isRequestComplete: boolean;
+  public isRequestComplete: boolean = true;
 
   constructor(
     protected _http: HttpClient,

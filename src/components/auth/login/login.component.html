@@ -28,7 +28,7 @@
     </mat-form-field>
 
     <button
-      *ngIf="isRequestComplete; else spinner"
+      *ngIf="isRequestComplete(); else spinner"
       (click)="submit()"
       mat-raised-button
       color="accent"
