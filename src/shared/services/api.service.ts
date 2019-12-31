@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 
 @Injectable()
 export class ApiService {
+  public isRequestComplete: boolean = true;
+
   constructor(
     protected _http: HttpClient,
     protected _notification: LogNotificationService,
@@ -33,7 +35,16 @@ export class ApiService {
     return this._http.delete(url, options);
   }
 
+  public setRequestStatus(value: boolean): void {
+    this.isRequestComplete = value;
+  }
+  public getRequestStatus(): boolean {
+    return this.isRequestComplete;
+  }
+
   public onError(error: Response) {
+    this.setRequestStatus(true);
+
     if (error.status !== 422) {
       let message = error.statusText;
 

@@ -11,7 +11,7 @@
         {{ 'EMAIL_ERROR' | translate }}
       </mat-error>
       <mat-error *ngIf="loginFormGroup.hasError('required', 'email')">
-        {{ 'REQUIRED_ERROR' | translate: {name: 'E-mail'} }}
+        {{ 'REQUIRED_ERROR' | translate }}
       </mat-error>
     </mat-form-field>
 
@@ -23,12 +23,12 @@
         type="password"
       >
       <mat-error *ngIf="loginFormGroup.hasError('required', 'password')">
-        {{ 'REQUIRED_ERROR' | translate: {name: 'Password'} }}
+        {{ 'REQUIRED_ERROR' | translate }}
       </mat-error>
     </mat-form-field>
 
     <button
-      *ngIf="isRequestComplete; else spinner"
+      *ngIf="isRequestComplete(); else spinner"
       (click)="submit()"
       mat-raised-button
       color="accent"

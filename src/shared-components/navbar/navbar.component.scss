@@ -2,8 +2,8 @@
 
 .navbar {
   width: 100%;
+  box-shadow: 0 6px 15px -5px rgba(0,0,0,0.6);
   &--sticky {
-    box-shadow: 0 6px 15px -5px rgba(0,0,0,0.6);
     transition: 1s;
     background-color: #fff;
     position: fixed;
@@ -28,7 +28,7 @@
       &__title {
         cursor: pointer;
         font-size: 23px;
-        margin: 0;
+        margin: 0 $margin-sides-content;
         &--sticky {
           color: $green;
         }
@@ -41,34 +41,38 @@
       }
     }
     .right-section {
+      &__lang {
+        margin-right: $margin-sides-content;
+      }
       &__auth {
         color: #fff;
         .auth {
-          &__authenticated {
+          &__wrapper {
             display: flex;
             align-items: center;
           }
-          &__login, &__logout {
+          &__login {
             cursor: pointer;
-            margin: 0 15px;
+            margin-right: $margin-sides-content;
             padding: 3px 9px;
-            border-radius: 10px;
+            border-radius: $border-radius;
             &--sticky {
-              border: 1px solid black;
-              color: black;
+              border: 1px solid $black;
+              color: $black;
             }
             &--no-sticky {
               border: 1px solid white;
               color: white;
             }
             &--no-landing {
-              border: 1px solid black;
-              color: black;
+              border: 1px solid $black;
+              color: $black;
             }
           }
-          &__registration {
+          &__registration, &__menu {
+            margin-right: $margin-sides-content;
             padding: 4px 9px;
-            border-radius: 10px;
+            border-radius: $border-radius;
             cursor: pointer;
             z-index: 99;
             &--sticky {
@@ -88,4 +92,8 @@
       }
     }
   }
+}
+.auth__menu--active {
+  background: $green;
+  color: white;
 }

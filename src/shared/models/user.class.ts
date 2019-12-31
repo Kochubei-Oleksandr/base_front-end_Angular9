@@ -1,5 +1,5 @@
 import { ActiveRecord } from './active-record.class';
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/components/user.service';
 
 export class User extends ActiveRecord {
   protected provider = UserService;
@@ -13,10 +13,15 @@ export class User extends ActiveRecord {
   public mobile: string;
   public delivery_address: string;
   public age: number;
-  public city_id: number;
   public sex_id: number;
   public goal_id: number;
   public lifestyle_id: number;
+  public city_id: number;
+
+  //calculated parameters that are not in the database
+  public region_id: number;
+  public country_id: number;
+
 
   protected fields() {
     return [
@@ -30,10 +35,13 @@ export class User extends ActiveRecord {
       'description',
       'delivery_address',
       'age',
-      'city_id',
       'sex_id',
       'goal_id',
       'lifestyle_id',
+      'city_id',
+
+      'region_id',
+      'country_id'
     ];
   }
 }

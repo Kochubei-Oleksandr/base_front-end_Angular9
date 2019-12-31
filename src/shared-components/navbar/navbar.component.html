@@ -7,11 +7,13 @@
     </div>
     <div class="navbar__section right-section">
       <language-switching
+        class="right-section__lang"
         [classDecorator]="getClassDecorator('')"
       >
       </language-switching>
+
       <div class="right-section__auth auth">
-        <div class="auth__authenticated" *ngIf="!isLoggedIn(); else not_authenticated">
+        <div class="auth__wrapper" *ngIf="!isLoggedIn(); else authenticated">
           <p (click)="openLoginDialog()" [ngClass]="['auth__login', getClassDecorator('auth__login')]">
             {{'Sign in' | translate}}
           </p>
@@ -19,10 +21,23 @@
             {{'Register' | translate}}
           </p>
         </div>
-        <ng-template #not_authenticated>
-          <p (click)="logout()" [ngClass]="['auth__logout', getClassDecorator('auth__logout')]">
-            {{'Log out' | translate}}
-          </p>
+        <ng-template #authenticated>
+          <div class="auth__wrapper">
+            <p [matMenuTriggerFor]="menu" [ngClass]="['auth__menu', getClassDecorator('auth__menu')]">
+              {{'Menu' | translate}}
+            </p>
+            <mat-menu #menu="matMenu">
+              <button
+                *ngFor="let item of getMenuItems()"
+                [ngClass]="{'auth__menu--active': isMenuItemActive(item.url)}"
+                (click)="goToSelectedPage(item.url)"
+                mat-menu-item
+              >
+                <mat-icon [ngClass]="{'auth__menu--active': isMenuItemActive(item.url)}">{{item.icon}}</mat-icon>
+                <span>{{item.name | translate}}</span>
+              </button>
+            </mat-menu>
+          </div>
         </ng-template>
       </div>
     </div>

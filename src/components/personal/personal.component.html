@@ -1,0 +1,184 @@
+<div class="personal">
+  <div class="personal--content">
+    <div class="personal__user-data main-user-data">
+      <div class="main-user-data__header header">
+        <h3 class="header__title">{{ 'Personal data' | translate}}</h3>
+        <button (click)="logout()" class="header__logout" mat-button color="accent">{{'Log out' | translate}}</button>
+      </div>
+      <div class="main-user-data__content form">
+        <form class="form__content" [formGroup]="personalForm">
+          <div class="form__content__wrapper item">
+
+            <div class="item__wrapper">
+              <mat-form-field class="item__core">
+                <input
+                  matInput
+                  placeholder="{{'Your name' | translate}}"
+                  formControlName="name"
+                  maxlength="20"
+                >
+                <mat-hint align="end">
+                  {{personalForm.get('name').value.length}} / 20
+                </mat-hint>
+                <mat-error *ngIf="personalForm.hasError('required', 'name')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('name')">
+                  {{ serverValidationForm.getServerValidationError('name') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="item__wrapper">
+              <mat-form-field class="item__core">
+                <input
+                  matInput
+                  placeholder="{{'Your E=mail' | translate}}"
+                  formControlName="email"
+                >
+                <mat-hint align="end">
+                  {{personalForm.get('email').value.length}} / 50
+                </mat-hint>
+                <mat-error *ngIf="personalForm.hasError('email', 'email')">
+                  {{ 'EMAIL_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="personalForm.hasError('required', 'email')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('email')">
+                  {{ serverValidationForm.getServerValidationError('email') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="item__wrapper">
+              <mat-form-field class="item__core">
+                <input
+                  matInput
+                  placeholder="{{'Your phone number' | translate}}"
+                  formControlName="mobile"
+                  maxlength="20"
+                >
+                <mat-hint align="end">
+                  {{personalForm.get('mobile').value.length}} / 20
+                </mat-hint>
+                <mat-error *ngIf="personalForm.hasError('required', 'mobile')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('mobile')">
+                  {{ serverValidationForm.getServerValidationError('mobile') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="item__wrapper">
+              <mat-form-field class="item__core">
+                <input
+                  type="text"
+                  placeholder="{{'Pick country' | translate}}"
+                  matInput
+                  formControlName="country_id"
+                  [matAutocomplete]="auto"
+                >
+                <mat-autocomplete (optionSelected)="onCountrySelected($event)" [displayWith]="getCountryName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of countries" [id]="item.id" [value]="item.id">
+                    {{item.name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="personalForm.hasError('required', 'country_id')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('country_id')">
+                  {{ serverValidationForm.getServerValidationError('country_id') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="item__wrapper">
+              <mat-form-field *ngIf="isCountrySelected()" class="item__core">
+                <input
+                  type="text"
+                  placeholder="{{'Pick region' | translate}}"
+                  matInput
+                  formControlName="region_id"
+                  [matAutocomplete]="auto"
+                >
+                <mat-autocomplete (optionSelected)="onRegionSelected($event)" [displayWith]="getRegionName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of regions" [id]="item.id" [value]="item.id">
+                    {{item.name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="personalForm.hasError('required', 'region_id')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('region_id')">
+                  {{ serverValidationForm.getServerValidationError('region_id') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="item__wrapper">
+              <mat-form-field *ngIf="isRegionSelected()" class="item__core">
+                <input
+                  type="text"
+                  placeholder="{{'Pick city' | translate}}"
+                  matInput
+                  formControlName="city_id"
+                  [matAutocomplete]="auto"
+                >
+                <mat-autocomplete [displayWith]="getCityName.bind(this)" #auto="matAutocomplete">
+                  <mat-option *ngFor="let item of cities" [id]="item.id" [value]="item.id">
+                    {{item.name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="personalForm.hasError('required', 'city_id')">
+                  {{ 'REQUIRED_ERROR' | translate }}
+                </mat-error>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('city_id')">
+                  {{ serverValidationForm.getServerValidationError('city_id') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+            <div *ngIf="isCitySelected()" class="item__wrapper">
+              <mat-form-field class="item__core item__core--delivery-address">
+                <textarea
+                  matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  placeholder="{{'Your delivery address' | translate}}"
+                  formControlName="delivery_address"
+                  maxlength="100"
+                >
+                </textarea>
+                <mat-hint align="end">
+                  {{personalForm.get('delivery_address').value.length}} / 100
+                </mat-hint>
+                <mat-error *ngIf="serverValidationForm.isServerValidationError('delivery_address')">
+                  {{ serverValidationForm.getServerValidationError('delivery_address') }}
+                </mat-error>
+              </mat-form-field>
+            </div>
+
+          </div>
+        </form>
+        <div class="form__button">
+          <button
+            *ngIf="isRequestComplete(); else spinner"
+            (click)="saveUserData()"
+            mat-raised-button
+            color="accent"
+            [disabled]="!personalForm.valid"
+          >
+            {{'Save' | translate}}
+          </button>
+        </div>
+        <ng-template #spinner>
+          <progress-spinner [diameter]="50"></progress-spinner>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

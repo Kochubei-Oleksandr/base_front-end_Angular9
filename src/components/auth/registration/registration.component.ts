@@ -15,7 +15,6 @@ export class RegistrationComponent implements OnInit {
   public registerFormGroup: FormGroup;
   public privacyPDFSrc: string = LINKS_FOR_DOCUMENTS.privacyPDFSrc;
   public agreementPDFSrc: string = LINKS_FOR_DOCUMENTS.agreementPDFSrc;
-  public isRequestComplete: boolean = true;
 
   constructor(
     private _fb: FormBuilder,
@@ -60,15 +59,19 @@ export class RegistrationComponent implements OnInit {
       }
     });
   }
+  isRequestComplete(): boolean {
+    return this._authService.getRequestStatus()
+  }
   submit() {
-    this.isRequestComplete = false;
+    this._authService.setRequestStatus(false);
+
     this._authService.register(this.registerFormGroup.value).subscribe(
       () => {
         this._dialog.closeAll();
-        this.isRequestComplete = true;
+        this._authService.setRequestStatus(true);
       },
       (res) => {
-        this.isRequestComplete = true;
+        this._authService.setRequestStatus(true);
         if (res.status === 422) {
           this.serverValidationForm.showErrors(res.error.errors, this.registerFormGroup.controls);
         }

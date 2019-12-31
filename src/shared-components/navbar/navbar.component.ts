@@ -4,6 +4,10 @@ import {MatDialog} from '@angular/material';
 import {RegistrationComponent} from '../../components/auth/registration/registration.component';
 import {Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth/auth.service';
+import {TranslateService} from '@ngx-translate/core';
+import {MENU_ITEMS} from '../../shared/constants/menu-items.const';
+import {IMenuItems} from '../../shared/interfaces/menu-items.interface';
+import {ROUTING_NAMES} from '../../shared/constants/routing-names.const';
 
 @Component({
     selector: 'navbar',
@@ -12,12 +16,14 @@ import {AuthService} from '../../shared/services/auth/auth.service';
 })
 export class NavbarComponent {
   @Input() isLanding: boolean;
+  private _menuItems: IMenuItems | any = MENU_ITEMS;
   public isSticky: boolean = false;
 
   constructor (
     private _router: Router,
     private _dialog: MatDialog,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _translateService: TranslateService,
   ) { }
 
   @HostListener('window:scroll', ['$event'])
@@ -29,9 +35,6 @@ export class NavbarComponent {
 
   isLoggedIn() {
     return AuthService.isLoggedIn();
-  }
-  logout() {
-    this._authService.doLogout();
   }
   getClassDecorator(mainClass: string): string {
     return this.isLanding
@@ -49,6 +52,15 @@ export class NavbarComponent {
     });
   }
   goToHomePage() {
-    this._router.navigate(['/']);
+    this._router.navigate([ROUTING_NAMES.home]);
+  }
+  getMenuItems() {
+    return Object.values(this._menuItems);
+  }
+  isMenuItemActive(url: string): boolean {
+    return this._router.url === '/' + url;
+  }
+  goToSelectedPage(url: string) {
+    this._router.navigate([url]);
   }
 }

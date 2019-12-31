@@ -9,7 +9,6 @@ import {MatDialog} from '@angular/material';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  public isRequestComplete: boolean = true;
   public loginFormGroup: FormGroup;
 
   constructor(
@@ -27,15 +26,19 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required]]
     });
   }
+  isRequestComplete(): boolean {
+    return this._authService.getRequestStatus()
+  }
   submit() {
-    this.isRequestComplete = false;
+    this._authService.setRequestStatus(false);
+
     this._authService.login(this.loginFormGroup.value).subscribe(
       () => {
         this._dialog.closeAll();
-        this.isRequestComplete = true;
+        this._authService.setRequestStatus(true);
       },
       () => {
-        this.isRequestComplete = true;
+        this._authService.setRequestStatus(true);
       }
     );
   }

@@ -3,6 +3,7 @@ import { ApiService } from './api.service';
 import { Observable } from 'rxjs';
 import { ICrud } from '../interfaces/crud.interface';
 import { map, catchError } from "rxjs/operators"
+import * as _ from 'lodash';
 
 @Injectable()
 export abstract class CrudService extends ApiService implements ICrud {
@@ -14,49 +15,75 @@ export abstract class CrudService extends ApiService implements ICrud {
     return this.namespaceSingular ? this.namespaceSingular : this.namespace;
   }
 
-  public get<T>(query?: any): Observable<any> {
+  public get<T>(params?: any): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
-      .sendGet(this.getEndpoint(this.namespace), {search: query})
+      .sendGet(this.getEndpoint(this.namespace), {params: params})
       .pipe(
-        map((res: Response | any) => res.json().map((item: T) => this.buildModel<T>(item))),
+        map((res: Response | any) => this.buildModelFromArray(res)),
         catchError((err) => this.onError(err))
       );
   }
 
-  public view<T>(id: number, query?: any): Observable<any> {
+  public view<T>(id?: number, query?: any): Observable<any> {
+    let separate = id ? '/' + id : '';
+    this.setRequestStatus(false);
+
     return this
-      .sendGet(this.getEndpoint(this.singularEndpoint + '/' + id), {search: query})
+      .sendGet(this.getEndpoint(this.singularEndpoint + separate), {search: query})
       .pipe(
-        map((res: Response |any) => this.buildModel<T>(res.json())),
+        map((res: Response |any) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public create<T>(data: T): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
-      .sendPost(this.getEndpoint(this.namespace), data)
+      .sendPost(this.getEndpoint(this.singularEndpoint), data)
       .pipe(
-        map((res: Response) => this.buildModel<T>(res.json())),
+        map((res: Response) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public update<T>(id: number, data: T): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
-      .sendPut(this.getEndpoint(this.namespace + '/' + id), data)
+      .sendPut(this.getEndpoint(this.singularEndpoint + '/' + id), data)
       .pipe(
-        map((res: Response) => this.buildModel<T>(res.json())),
+        map((res: Response) => this.buildModelFromObject(res)),
         catchError((err) => this.onError(err))
       )
   }
 
   public remove<T>(id: number): Observable<any> {
+    this.setRequestStatus(false);
+
     return this
       .sendDelete(this.getEndpoint(this.singularEndpoint + '/' + id))
       .pipe(
-        map((res: Response | any) => <T> res.json()),
+        map((res: Response | any) => this.responseWithoutBuildModel(res)),
         catchError((err) => this.onError(err))
       )
+  }
+
+  public buildModelFromArray<T>(res) {
+    this.setRequestStatus(true);
+    return res.map((item: T) => this.buildModel<T>(_.pickBy(item)));
+  }
+
+  public buildModelFromObject<T>(res) {
+    this.setRequestStatus(true);
+    return this.buildModel<T>(_.pickBy(res));
+  }
+
+  public responseWithoutBuildModel<T>(res) {
+    this.setRequestStatus(true);
+    return <T> _.pickBy(res);
   }
 
   public buildModel<T>(data: any): T {
