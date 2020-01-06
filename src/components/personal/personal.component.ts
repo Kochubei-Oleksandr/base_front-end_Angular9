@@ -130,7 +130,7 @@ export class PersonalComponent implements OnInit {
     if (confirm(
       this._translateService.instant('Are you sure you want to go out?')
     )) {
-      this._authService.doLogout();
+      this._authService.backendLogout();
     }
   }
   isRequestComplete(): boolean {

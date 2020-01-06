@@ -3,9 +3,11 @@ import { LogNotificationService } from './log-notification.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { throwError } from 'rxjs';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
   public isRequestComplete: boolean = true;
 
@@ -38,6 +40,7 @@ export class ApiService {
   public setRequestStatus(value: boolean): void {
     this.isRequestComplete = value;
   }
+
   public getRequestStatus(): boolean {
     return this.isRequestComplete;
   }
@@ -48,7 +51,6 @@ export class ApiService {
     if (error.status !== 422) {
       let message = error.statusText;
 
-      //TODO check it
       let regexError500 = RegExp('5[0-9][0-9]');
       if(regexError500.test(String(error.status))) {
         message = 'Server error, try again later';

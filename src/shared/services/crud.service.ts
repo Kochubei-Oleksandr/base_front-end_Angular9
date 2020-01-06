@@ -5,7 +5,9 @@ import { ICrud } from '../interfaces/crud.interface';
 import { map, catchError } from "rxjs/operators"
 import * as _ from 'lodash';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export abstract class CrudService extends ApiService implements ICrud {
   protected abstract namespace: string;
   protected abstract ModelClass: any;
