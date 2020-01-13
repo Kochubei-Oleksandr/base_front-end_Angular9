@@ -1,8 +1,8 @@
+@import 'abstracts/constants';
+
 .food-plans {
-  &__section {
-    &--second {
-      height: 1000px;
-      background-color: blue;
-    }
+  &__calorie-calculator {
+    max-width: $max-width;
+    margin: 0 auto;
   }
 }

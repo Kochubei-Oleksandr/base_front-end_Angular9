@@ -1,0 +1,160 @@
+<div class="calorie-calculator">
+
+    <div class="calorie-calculator__content form">
+      <form class="form__content" [formGroup]="calculatorForm">
+        <div class="form__content__wrapper item">
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                type="text"
+                placeholder="{{'Pick goal' | translate}}"
+                matInput
+                formControlName="goal_id"
+                [matAutocomplete]="goal"
+              >
+              <mat-autocomplete [displayWith]="getGoalName.bind(this)" #goal="matAutocomplete">
+                <mat-option *ngFor="let item of goals" [id]="item.id" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'goal_id')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('goal_id')">
+                {{ serverValidationForm.getServerValidationError('goal_id') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                type="text"
+                placeholder="{{'Pick sex' | translate}}"
+                matInput
+                formControlName="sex_id"
+                [matAutocomplete]="sex"
+              >
+              <mat-autocomplete [displayWith]="getSexName.bind(this)" #sex="matAutocomplete">
+                <mat-option *ngFor="let item of sexes" [id]="item.id" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'sex_id')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('sex_id')">
+                {{ serverValidationForm.getServerValidationError('sex_id') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                type="text"
+                placeholder="{{'Pick lifestyle' | translate}}"
+                matInput
+                formControlName="lifestyle_id"
+                [matAutocomplete]="lifestyle"
+              >
+              <mat-autocomplete [displayWith]="getLifestyleName.bind(this)" #lifestyle="matAutocomplete">
+                <mat-option *ngFor="let item of lifestyles" [id]="item.id" [value]="item.id">
+                  {{item.name}}
+                </mat-option>
+              </mat-autocomplete>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'lifestyle_id')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('lifestyle_id')">
+                {{ serverValidationForm.getServerValidationError('lifestyle_id') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                matInput
+                placeholder="{{'Your age' | translate}}"
+                formControlName="age"
+                min="{{minValue}}"
+                max="{{maxAge}}"
+                type="number"
+              >
+              <mat-hint align="end">
+                {{calculatorForm.get('age').value}} / {{maxAge}}
+              </mat-hint>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'age')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('age')">
+                {{ serverValidationForm.getServerValidationError('age') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                matInput
+                placeholder="{{'Your weight' | translate}}"
+                formControlName="weight"
+                min="{{minValue}}"
+                max="{{maxWeight}}"
+                type="number"
+              >
+              <mat-hint align="end">
+                {{calculatorForm.get('weight').value}} / {{maxWeight}}
+              </mat-hint>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'weight')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('weight')">
+                {{ serverValidationForm.getServerValidationError('weight') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="item__wrapper">
+            <mat-form-field class="item__core">
+              <input
+                matInput
+                placeholder="{{'Your height' | translate}}"
+                formControlName="height"
+                min="{{minValue}}"
+                max="{{maxHeight}}"
+                type="number"
+              >
+              <mat-hint align="end">
+                {{calculatorForm.get('height').value}} / {{maxHeight}}
+              </mat-hint>
+              <mat-error *ngIf="calculatorForm.hasError('required', 'height')">
+                {{ 'REQUIRED_ERROR' | translate }}
+              </mat-error>
+              <mat-error *ngIf="serverValidationForm.isServerValidationError('height')">
+                {{ serverValidationForm.getServerValidationError('height') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+        </div>
+      </form>
+      <div class="form__button">
+        <button
+          *ngIf="isAllRequestComplete(); else spinner"
+          (click)="getEstimatedCalorie()"
+          mat-raised-button
+          color="accent"
+          [disabled]="!calculatorForm.valid"
+        >
+          {{'Save' | translate}}
+        </button>
+      </div>
+      <ng-template #spinner>
+        <progress-spinner [diameter]="50"></progress-spinner>
+      </ng-template>
+    </div>
+
+</div>
