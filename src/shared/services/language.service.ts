@@ -2,7 +2,6 @@ import {Injectable, OnInit} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {SERVICE_LANGUAGES} from '../constants/service-languages.const';
 
-
 @Injectable()
 export class LanguageService implements OnInit {
   private _serviceLanguages = SERVICE_LANGUAGES;

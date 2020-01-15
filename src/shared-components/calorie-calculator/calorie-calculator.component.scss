@@ -14,6 +14,7 @@
         &__wrapper {
           display: flex;
           flex-flow: row wrap;
+          justify-content: center;
           .item {
             &__wrapper {
               display: contents;

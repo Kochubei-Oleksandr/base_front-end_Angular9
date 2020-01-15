@@ -141,20 +141,8 @@
 
         </div>
       </form>
-      <div class="form__button">
-        <button
-          *ngIf="isAllRequestComplete(); else spinner"
-          (click)="getEstimatedCalorie()"
-          mat-raised-button
-          color="accent"
-          [disabled]="!calculatorForm.valid"
-        >
-          {{'Save' | translate}}
-        </button>
-      </div>
-      <ng-template #spinner>
-        <progress-spinner [diameter]="50"></progress-spinner>
-      </ng-template>
-    </div>
 
+      <progress-spinner *ngIf="!isRequestComplete()" [diameter]="50"></progress-spinner>
+
+    </div>
 </div>

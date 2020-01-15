@@ -7,6 +7,11 @@ import {User} from '../../shared/models/user.class';
 import {SexService} from '../../shared/services/components/user-options/sex.service';
 import {GoalService} from '../../shared/services/components/user-options/goal.service';
 import {LifestyleService} from '../../shared/services/components/user-options/lifestyle.service';
+import {Sex} from '../../shared/models/user-options/sex.class';
+import {TranslateService} from '@ngx-translate/core';
+import {Lifestyle} from '../../shared/models/user-options/lifestyle.class';
+import {Goal} from '../../shared/models/user-options/goal.class';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'calorie-calculator',
@@ -15,9 +20,9 @@ import {LifestyleService} from '../../shared/services/components/user-options/li
 })
 export class CalorieCalculatorComponent implements OnInit {
   public calculatorForm: FormGroup;
-  public goals: any = [];
-  public sexes: any = [];
-  public lifestyles: any = [];
+  public goals: Goal[] = [];
+  public sexes: Sex[] = [];
+  public lifestyles: Lifestyle[] = [];
   public maxAge = 150;
   public maxWeight = 300;
   public maxHeight = 300;
@@ -30,7 +35,8 @@ export class CalorieCalculatorComponent implements OnInit {
     private _lifestyleService: LifestyleService,
     private _userService: UserService,
     private _authService: AuthService,
-    public serverValidationForm: ServerValidationFormService,
+    private _translateService: TranslateService,
+    public serverValidationForm: ServerValidationFormService
   ) { }
 
   ngOnInit() {
@@ -39,6 +45,17 @@ export class CalorieCalculatorComponent implements OnInit {
     this.getGoals();
     this.getLifestyles();
     this.getUserData();
+    this._translateService.onLangChange.subscribe(() => {
+      this.getSexes();
+      this.getGoals();
+      this.getLifestyles();
+    });
+    this.calculatorForm.valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged((oldValue, newValue) => JSON.stringify(oldValue) === JSON.stringify(newValue))
+    ).subscribe(formData => {
+      console.log('TODO - отправка и обработка ответа', formData);
+    })
   }
   createCalculatorForm(): void {
     this.calculatorForm = this._fb.group({
@@ -91,13 +108,10 @@ export class CalorieCalculatorComponent implements OnInit {
     let index = this.lifestyles.findIndex(item => item.id === id);
     return this.lifestyles.length !== 0 ? this.lifestyles[index].name : '';
   }
-  isUserOptionRequestComplete(): boolean {
-    return this._sexService.getRequestStatus() && this._goalService.getRequestStatus() && this._lifestyleService.getRequestStatus();
-  }
-  isAllRequestComplete(): boolean {
-    return this._userService.getRequestStatus() && this.isUserOptionRequestComplete();
-  }
-  getEstimatedCalorie() {
-    console.log('REQUEST FOR SERVER', this.calculatorForm.value);
+  isRequestComplete(): boolean {
+    return this._userService.getRequestStatus()
+      && this._sexService.getRequestStatus()
+      && this._goalService.getRequestStatus()
+      && this._lifestyleService.getRequestStatus();
   }
 }
