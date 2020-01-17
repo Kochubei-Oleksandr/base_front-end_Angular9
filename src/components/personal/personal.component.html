@@ -78,9 +78,9 @@
                   placeholder="{{'Pick country' | translate}}"
                   matInput
                   formControlName="country_id"
-                  [matAutocomplete]="auto"
+                  [matAutocomplete]="country"
                 >
-                <mat-autocomplete (optionSelected)="onCountrySelected($event)" [displayWith]="getCountryName.bind(this)" #auto="matAutocomplete">
+                <mat-autocomplete (optionSelected)="onCountrySelected($event)" [displayWith]="getCountryName.bind(this)" #country="matAutocomplete">
                   <mat-option *ngFor="let item of countries" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>
@@ -101,9 +101,9 @@
                   placeholder="{{'Pick region' | translate}}"
                   matInput
                   formControlName="region_id"
-                  [matAutocomplete]="auto"
+                  [matAutocomplete]="region"
                 >
-                <mat-autocomplete (optionSelected)="onRegionSelected($event)" [displayWith]="getRegionName.bind(this)" #auto="matAutocomplete">
+                <mat-autocomplete (optionSelected)="onRegionSelected($event)" [displayWith]="getRegionName.bind(this)" #region="matAutocomplete">
                   <mat-option *ngFor="let item of regions" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>
@@ -124,9 +124,9 @@
                   placeholder="{{'Pick city' | translate}}"
                   matInput
                   formControlName="city_id"
-                  [matAutocomplete]="auto"
+                  [matAutocomplete]="city"
                 >
-                <mat-autocomplete [displayWith]="getCityName.bind(this)" #auto="matAutocomplete">
+                <mat-autocomplete [displayWith]="getCityName.bind(this)" #city="matAutocomplete">
                   <mat-option *ngFor="let item of cities" [id]="item.id" [value]="item.id">
                     {{item.name}}
                   </mat-option>

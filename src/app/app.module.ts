@@ -37,6 +37,7 @@ import {ApiConfigInterceptor} from '../shared/interceptors/api-config.intercepto
 import {ServerValidationFormService} from '../shared/services/server-validation-form.service';
 import {ProgressSpinnerComponent} from '../shared-components/progress-spinner/progress-spinner.component';
 import {PersonalComponent} from '../components/personal/personal.component';
+import {CalorieCalculatorComponent} from '../shared-components/calorie-calculator/calorie-calculator.component';
 
 const LANDING_MODULES = [
   LandingComponent,
@@ -53,7 +54,8 @@ const SHARED_COMPONENTS = [
   NavbarComponent,
   PdfModalDialogComponent,
   LanguageSwitchingComponent,
-  ProgressSpinnerComponent
+  ProgressSpinnerComponent,
+  CalorieCalculatorComponent
 ];
 const SHARED_PIPES = [
   CapitalizePipe
