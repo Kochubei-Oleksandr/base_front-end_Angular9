@@ -25,6 +25,12 @@
   "Pick country": "Выберите вашу страну",
   "Pick region": "Выберите ваш регион",
   "Pick city": "Выберите ваш город",
-  "Your delivery address": "Ваш адрес доставки"
+  "Your delivery address": "Ваш адрес доставки",
+  "Pick goal": "Выберите цель",
+  "Pick sex": "Выберите пол",
+  "Pick lifestyle": "Выберите образ жизни",
+  "Your age": "Ваш возраст",
+  "Your weight": "Ваш вес",
+  "Your height": "Ваш рост"
 
 }
